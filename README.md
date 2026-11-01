@@ -1,5 +1,6 @@
 # CO2 impact on convolutional network model training for autonomous driving through behavioral cloning
 
+<<<<<<< HEAD
 This repository contains the code and experimental workflow associated with the research paper titled "CO2 impact on convolutional network model training for autonomous driving through behavioral cloning", published in the Advanced Engineering Informatics Journal.
 
 The project explores the influence of computational cost and carbon emissions associated with training convolutional neural networks for autonomous driving using behavioral cloning. The main objective is to train a model that learns to drive from camera images and steering labels by mimicking human driving behavior observed in simulated environments.
@@ -25,10 +26,38 @@ To develop and document a computer vision-based autonomous driving solution usin
 - preparing datasets with multiple camera viewpoints,
 - validating the model in a realistic simulator,
 - assessing the relationship between computational cost and performance.
+=======
+This repository contains the implementation and experimental workflow associated with the paper:
+
+"CO2 impact on convolutional network model training for autonomous driving through behavioral cloning"
+
+published in the Advanced Engineering Informatics Journal.
+
+## Overview
+
+This project studies how deep learning models can learn end-to-end autonomous driving behavior from camera data using behavioral cloning. The system predicts steering commands from visual input and is trained on simulator-generated driving data.
+
+The work focuses on:
+
+- behavioral cloning for steering prediction,
+- comparison of CNN architectures,
+- preprocessing and augmentation strategies,
+- training efficiency and computational cost,
+- deployment in a driving simulator for validation.
+
+## Project goals
+
+- build an end-to-end driving policy from image observations,
+- compare PilotNet-like and VGG-style CNN architectures,
+- improve generalization through data preprocessing and augmentation,
+- evaluate model performance from a training-efficiency perspective,
+- reproduce the experimental workflow from the published paper.
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 
 ## Repository structure
 
 ```text
+<<<<<<< HEAD
 Scripts_Paper_1/
 ├── README.md
 ├── requirements_TFM.txt
@@ -60,11 +89,53 @@ Scripts_Paper_1/
 
 The project uses driving data collected in a simulator, typically including images from three cameras (center, left, and right), together with:
 
+=======
+repo_name/
+├── README.md
+├── requirements_TFM.txt
+├── requirements_TFM_Conda.txt
+├── Scripts_TFM/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── main.py
+│   ├── models.py
+│   ├── preprocessing.py
+│   ├── data_utils.py
+│   ├── visualization.py
+│   ├── TFM_uoc_adbc_PilotNet_VGG.py
+│   ├── drive_v1.py
+│   ├── drive_v2.py
+│   ├── drive4.py
+│   ├── model_nor.h5
+│   ├── model_VGG.h5
+│   └── README.md
+└── trained_models/        # generated during training
+```
+
+## Main components
+
+- `Scripts_TFM/main.py`: primary training entry point.
+- `Scripts_TFM/models.py`: neural network architectures.
+- `Scripts_TFM/preprocessing.py`: image preprocessing and augmentation pipeline.
+- `Scripts_TFM/data_utils.py`: dataset generation, balancing, splitting, and batching.
+- `Scripts_TFM/visualization.py`: helper functions for exploratory plots.
+- `Scripts_TFM/drive_v1.py`, `drive_v2.py`, `drive4.py`: simulator inference scripts.
+- `Scripts_TFM/TFM_uoc_adbc_PilotNet_VGG.py`: legacy training script retained for reference.
+
+## Methodology
+
+### Data
+
+The project uses driving logs generated from a simulator and typically includes:
+
+- center, left, and right camera images,
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 - steering angle,
 - throttle,
 - brake,
 - speed.
 
+<<<<<<< HEAD
 The frames are used as network inputs, while the associated steering values serve as labels. In many cases, side-camera images are used to increase dataset diversity and improve generalization.
 
 ### 2. Preprocessing and data augmentation
@@ -132,6 +203,34 @@ The exact dependency lists are available in:
 ## Installation
 
 ### Option 1: pip
+=======
+### Preprocessing and augmentation
+
+The pipeline includes:
+
+- image cropping,
+- conversion to YUV color space,
+- Gaussian blur,
+- resizing to CNN input dimensions,
+- pixel normalization,
+- brightness adjustments,
+- flips, translations, and shadow augmentation.
+
+### Model architectures
+
+Two main CNN families are used:
+
+- PilotNet-inspired network,
+- VGG-style architecture.
+
+Both models regress a continuous steering value from a single input image.
+
+## Quick start
+
+### 1. Install dependencies
+
+Using pip:
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 
 ```bash
 python -m venv .venv
@@ -139,7 +238,11 @@ source .venv/bin/activate
 pip install -r requirements_TFM.txt
 ```
 
+<<<<<<< HEAD
 ### Option 2: conda
+=======
+Using conda:
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 
 ```bash
 conda create --name tfm_uoc python=3.8
@@ -147,6 +250,7 @@ conda activate tfm_uoc
 pip install -r requirements_TFM.txt
 ```
 
+<<<<<<< HEAD
 ## Training
 
 From the project root, run:
@@ -162,26 +266,60 @@ The script prepares the dataset, trains the network, and stores the resulting mo
 The driving scripts load a trained model and control the vehicle using live camera input.
 
 ### Version 1
+=======
+### 2. Train the model
+
+```bash
+python Scripts_TFM/main.py --data-dir /path/to/dataset --model vgg --epochs 20 --batch-size 16 --output-dir ./trained_models
+```
+
+Available model choices:
+
+- `vgg`
+- `nvidia`
+
+### 3. Use the project as a Python module
+
+```python
+from Scripts_TFM.main import main
+
+if __name__ == "__main__":
+    main()
+```
+
+## Simulation / inference
+
+The simulator scripts load a trained model and use live telemetry to predict steering actions in real time.
+
+Run the inference scripts from the project folder:
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 
 ```bash
 cd Scripts_TFM
 python drive_v1.py
 ```
 
+<<<<<<< HEAD
 ### Version 2
 
+=======
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 ```bash
 cd Scripts_TFM
 python drive_v2.py
 ```
 
+<<<<<<< HEAD
 ### Additional variant
 
+=======
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 ```bash
 cd Scripts_TFM
 python drive4.py
 ```
 
+<<<<<<< HEAD
 These programs receive telemetry from the simulator, apply the same image preprocessing used during training, and predict the steering command required for autonomous driving.
 
 ## Pretrained models included
@@ -198,13 +336,34 @@ This work is part of a research line focused on:
 - evaluation of efficient solutions for embedded and low-power systems.
 
 ## Paper reference
+=======
+## Outputs
+
+Training produces:
+
+- trained model checkpoint in `.h5` format,
+- TensorBoard logs under `seq_logs`,
+- saved artifacts under `trained_models/`.
+
+## Citation
+
+If you use this work in your research, please cite the original paper:
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
 
 CO2 impact on convolutional network model training for autonomous driving through behavioral cloning. Advanced Engineering Informatics Journal.
 
 ## License
 
+<<<<<<< HEAD
 This repository is shared for research and reproducibility purposes. If you reuse parts of the code or the material, please cite the original work and reference the project accordingly.
 
 ## Contact
 
 If you want to collaborate, reproduce the experiments, or extend this work, this repository can serve as a starting point for further research and development.
+=======
+This repository is provided for research and reproducibility purposes. Please cite the original publication when reusing code, results, or methodology.
+
+## Contact
+
+For collaboration or questions about the project, please reach out through the corresponding publication or repository maintainer.
+>>>>>>> 72c7551f (Update project structure and modular training pipeline)
